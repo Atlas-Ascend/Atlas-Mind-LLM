@@ -1,0 +1,15 @@
+schema: ghost-atlas.integration.gaqc3/v1
+consumer: Atlas-Ascend/Atlas-Mind-LLM
+provider:
+  organ_id: GAQC-3.0
+  canonical_name: Ghost Atlas Quantum Computer
+  repository: Atlas-Ascend/Ghost-Atlas-Research-Institute
+  path: labs/gaqc3
+handoff:
+  intent: formulate-quantum-problem
+  next_authority: Atlas-Ascend/Janus-Odin
+  work_substrate: Atlas-Ascend/Packet-OS
+  capability_router: Atlas-Ascend/Crowngrid
+constraints:
+  atlas_mind_does_not_execute_qpu_jobs: true
+  simulator_results_must_not_be_promoted_as_physical_qpu: true
