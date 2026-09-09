@@ -1,0 +1,37 @@
+schema: ghost-atlas.hypernet.node/v1
+node_id: atlas-mind-llm
+repository: Atlas-Ascend/Atlas-Mind-LLM
+organism_root: Atlas-Ascend/VISHVARUPA-Software-Hardware-Organism
+version: 0.1.0
+lifecycle: active-candidate
+plane: cognition-world-model
+canonical_role: resident-cognitive-substrate-and-conversational-model-architecture
+authority:
+  owns: [cognitive-routing-contract, resident-model-interface, conversational-context-contract, inference-proposal-contract]
+  does_not_own: [executive-authorization, unrestricted-execution, finish-truth, physical-capability-truth]
+upstream:
+  - Atlas-Ascend/thoth-archive-engine
+  - Atlas-Ascend/Mind-As-OS-
+  - Atlas-Ascend/RHSIE-3.3
+  - Atlas-Ascend/MythOS
+  - Atlas-Ascend/Cipher-9.9
+  - Atlas-Ascend/Navi-3.3---Governance-Cognitive-Pattern-Recognition
+  - Atlas-Ascend/Ghost-Atlas-Research-Institute
+downstream:
+  - Atlas-Ascend/Janus-Prime
+  - Atlas-Ascend/Janus-Odin
+  - Atlas-Ascend/Packet-OS
+integration:
+  runtime_bridge: Atlas-Ascend/Cali-CRF
+  local_body: Atlas-Ascend/Eden-2.0
+  field_os: Atlas-Ascend/Ark-OS
+  io: Atlas-Ascend/Crowngrid
+  events: Atlas-Ascend/Ghost-Atlas-Estate-Event-Gateway
+  quality: Atlas-Ascend/SECA
+  security: Atlas-Ascend/Medusa-Sovereign-Security
+  memory: Atlas-Ascend/thoth-archive-engine
+  failure: Atlas-Ascend/PROMETHEUS-V-1.1.1
+proof:
+  runtime_state: unverified
+  inference_is_not_external_fact: true
+  repository_presence_is_not_runtime_proof: true
