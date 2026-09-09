@@ -1,8 +1,5 @@
 # Atlas Mind LLM Build Truth Spine
 
-Organism: VISHVARUPA
-Rule: these files define the minimum canonical truth surface for this organ. Implementation may expand beneath them but may not silently contradict them.
-
 01_IDENTITY_AND_MISSION.md
 02_SCOPE_AND_NON_GOALS.md
 03_SYSTEM_CONTEXT.md
@@ -19,7 +16,3 @@ Rule: these files define the minimum canonical truth surface for this organ. Imp
 14_DEPLOYMENT_RUNTIME_AND_INFRASTRUCTURE.md
 15_PROOF_ACCEPTANCE_AND_RECEIPTS.md
 16_ROADMAP_CANON_AND_SUPERSESSION.md
-
-Promotion rule: a capability is not LIVE because code exists. It is LIVE when its contract is implemented, exercised, independently verified where required, observable, and backed by an accepted proof receipt.
-
-Closed-loop target: Directive -> Packet OS -> CrownGrid -> executing organ -> SECA -> ProofGrid -> Thoth/MAAT -> JANUS reconciliation -> next packet.
