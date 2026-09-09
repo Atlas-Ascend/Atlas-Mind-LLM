@@ -1,0 +1,25 @@
+{
+  "schema": "ghost-atlas/atlas-mind/sami-context-binding/v1",
+  "contract": "GA-SAMI-MACHINE-CONTEXT-005",
+  "consumer": "Atlas-Mind-LLM",
+  "provider": "SAMI",
+  "endpoint": "https://ghost-atlas-runtime-gateway.onrender.com/v1/sami/brief",
+  "source_schema": "ghost-atlas/sami/resident-brief/v1",
+  "mode": "READ_ONLY_CONTEXT",
+  "may": [
+    "summarize_estate_posture",
+    "inspect_attention_queues",
+    "select_read_only_followup",
+    "prepare_proposed_command"
+  ],
+  "may_not": [
+    "execute_state_change",
+    "bypass_janus",
+    "write_canonical_memory_from_observation",
+    "promote_unproven_completion"
+  ],
+  "execution_authority": "JANUS PRIME",
+  "memory_authority": "Thoth",
+  "proof_authority": "ProofGrid/runtime-execution-receipt",
+  "fallback": "DEGRADED_CONTEXT_ONLY"
+}
