@@ -68,6 +68,10 @@ GA-NIF-PROCESSOR-BINDING-004 must bind a **cloud model processor** into the exis
 
 The production processor must remain behind server-side authentication and the existing Vercel OIDC → Render trust boundary. No browser credential, no naked model port, no fake model advertisement.
 
+### Cloud-only current-phase constraint
+
+Until explicitly lifted by the Architect, production execution must stay inside the cloud fabric: **Base44 + Neon + GitHub + Vercel + Render + monday.com**. Physical EDEN, local Ollama, JANUS/ODIN phones, GAIA, ARK hardware, and other local nodes may remain represented in topology/registry but are not required dependencies for current production availability.
+
 ### Proof law
 
 BUILT != TESTED != RUNNING != CONNECTED != EXECUTING != RECEIPTED != VERIFIED != PROVEN != PROMOTED.
