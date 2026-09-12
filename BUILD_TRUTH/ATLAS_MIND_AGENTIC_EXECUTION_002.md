@@ -1,94 +1,73 @@
-# GA-ATLAS-MIND-AGENTIC-EXECUTION-002
+# ATLAS MIND AGENTIC EXECUTION 002
 
-Status: IMPLEMENTED_AND_DEPLOYED / PRODUCTION_MODEL_EXECUTION_GATE_BLOCKED
+## Cloud execution law — 2026-09-12
 
-Date: 2026-09-12
+For the current production phase, Ghost Atlas / EDEN AGI runs through the cloud control fabric. Local EDEN/Ollama is not the production processor path until explicitly reintroduced by a later migration.
 
-## Mission
+### Canonical provider responsibility split
 
-Bind the real Atlas Mind model in `Atlas-Ascend/nextjs-ai-chatbot` to the existing governed Ghost Atlas execution organism for bounded multi-step command-to-proof operation. No replacement organs.
+- **Base44 — rapid application / operational interface layer**
+  - fast-build internal apps, operator utilities, intake surfaces, diagnostics, workflow consoles, and lightweight business tools;
+  - may call governed backend APIs but is not source-of-truth for code, proof, or durable estate state.
 
-Canonical path:
+- **Neon — canonical cloud data/state plane**
+  - Postgres system of record for commands, CaseGraphs, packets, workers, dispatches, events, proofs, memory indexes, service registry, runtime presence, telemetry, and application state;
+  - branching is used for safe schema/testing workflows;
+  - no other provider should become an independent competing system of record.
 
-Atlas Mind model → model-visible execution tool → scoped Vercel workload identity → existing deterministic live-capability planner → JANUS PRIME → Packet OS / Workforce → executor → DevOS / SECA → Medusa → ProofGrid → THOTH → model synthesis.
+- **GitHub — source control / CI / Build Truth plane**
+  - canonical repositories, branches, commits, PRs, Actions, release artifacts, Build Truth, audit trail, code review, dependency/build/test evidence;
+  - software mutation is promoted through GitHub lineage before production deployment.
 
-## Implemented
+- **Vercel — Atlas Mind and public/edge application plane**
+  - Atlas Mind conversational frontend, public websites, edge/serverless UI routes, previews, production web deployment, Vercel workload OIDC, and AI-facing web ingress;
+  - browser/UI logic lives here, while persistent workers and long-running execution do not.
 
-### Atlas Mind model surface
+- **Render — persistent runtime / API / worker execution plane**
+  - JANUS-gated runtime APIs, GA-NIF stable edge, Workforce workers, long-running services, command-to-proof orchestration, WebSockets/SSE where needed, provider adapters, ProofGrid/THOTH runtime steps;
+  - all state-changing execution routes through JANUS and proof gates.
 
-- Production repo: `Atlas-Ascend/nextjs-ai-chatbot`.
-- Stable agentic implementation commit: `0cfb16dea8c78cce77cc5239e3789f77adde1608`.
-- Adds model-visible `executeAtlasObjective` to the real AI SDK `streamText` tool loop.
-- The model may propose at most three ordered, non-destructive execution steps per request.
-- Each step consumes a request-scoped execution budget.
-- Every step is re-planned against the live runtime registry; the model never directly selects an unchecked executor.
-- JANUS remains authoritative after model planning.
-- Tool returns run ID, correlation ID, selected capability, JANUS authority, ProofGrid receipts, THOTH state and completion claim for subsequent model reasoning.
-- Final synthesis law allows only proof-bearing verified step results to be asserted as external fact.
-- Destructive/high-risk/arbitrary-shell categories fail closed.
+- **monday.com — human/work orchestration and operating-management plane**
+  - campaigns, sprints, queues, assignments, status, approvals, human escalation, CRM/client work, recurring operating cadence, and management dashboards;
+  - monday coordinates work and people; it does not replace Packet OS, JANUS, Neon state, or GitHub source truth.
 
-### Runtime workload identity
+### Cloud control path
 
-- Runtime repo: `Atlas-Ascend/EXECUTION-FABRIC-LIVE-OPERATIONS-THEATER`.
-- Runtime commit: `3d57dc206daa28ba2f4ddb9e6e8781e34ca621ac`.
-- Render deployment: `dep-daimvs7qj5pc73ajf24g` — LIVE.
-- Existing Architect bearer remains supported.
-- Added Vercel OIDC verification using signed JWT + issuer + audience + exact production subject binding for Ghost Atlas / `nextjs-ai-chatbot` / production.
-- Invalid JWT-shaped workload identity fails closed.
-- No operator bearer is embedded in the browser or model prompt.
+Operator / Atlas Mind
+→ Vercel
+→ Render GA-NIF / command ingress
+→ JANUS
+→ Packet OS / Workforce
+→ provider capability adapters
+→ SECA / DevOS / Medusa
+→ ProofGrid
+→ THOTH
+→ Neon durable state
+→ Atlas Mind / operator
 
-### Deployment proof
+Cross-provider management path:
+Base44 operational apps ↔ Render governed APIs ↔ Neon state
+monday.com work management ↔ GitHub delivery truth / Render runtime status
+GitHub source → Vercel web deployment + Render runtime deployment
 
-- Vercel production deploy for agentic model implementation: `dpl_ABLJcnMCdnWftHQd1HBPdM2Aa63P` — READY.
-- Alias includes `atlasmind.global`.
-- Vercel preview build for the same implementation: `dpl_452sqQK6zAx78Ui3cBgmtsUdDz1J` — READY.
-- Render runtime deploy: `dep-daimvs7qj5pc73ajf24g` — LIVE.
+### Provider authority boundaries
 
-## Production canary attempt
+- Base44 may present and compose workflows; it does not certify execution.
+- Neon persists state; it does not authorize state-changing actions.
+- GitHub proves code lineage; a commit is not runtime proof.
+- Vercel hosts cognition/web surfaces; it does not own persistent workforce execution.
+- Render executes persistent runtime work; it does not become product/source truth.
+- monday.com coordinates human work; a monday status is not ProofGrid evidence.
 
-A one-time gated production canary was deployed to force the actual configured Atlas Mind model to call `executeAtlasObjective` and prove the full model → tool → OIDC → JANUS → proof → THOTH loop.
+### Current sprint direction
 
-Canary deploy: `dpl_5cMFGJytBnQJx4N3EFzdiy85KgXA` — READY.
+GA-NIF-PROCESSOR-BINDING-004 must bind a **cloud model processor** into the existing stable GA-NIF edge. Preferred current order is:
+1. a cloud AI/model gateway already available inside the chosen cloud provider fabric;
+2. another approved OpenAI-compatible cloud processor;
+3. local EDEN/Ollama only in a later explicit local-runtime migration.
 
-Observed result: HTTP 500 before tool invocation.
+The production processor must remain behind server-side authentication and the existing Vercel OIDC → Render trust boundary. No browser credential, no naked model port, no fake model advertisement.
 
-Root cause returned by the configured Vercel AI Gateway:
+### Proof law
 
-`customer_verification_required` / HTTP 403 — AI Gateway requires a valid credit card on file before it will service the model request.
-
-Therefore no model inference occurred, no agentic tool call occurred, and no command-to-proof receipt may be claimed for this sprint yet.
-
-This is an external model-provider billing/verification gate, not a runtime, JANUS, planner, ProofGrid, THOTH, TypeScript build, or deployment failure.
-
-The one-time canary route was removed immediately after the failed proof attempt; its nonce is not part of the stable production surface.
-
-## Truth classification
-
-### Proven
-
-- actual model-visible execution-tool code exists in the real Atlas Mind chat route;
-- model execution is bounded to three autonomous steps;
-- deterministic runtime capability validation remains authoritative;
-- destructive intent is denied by the model tool boundary;
-- scoped Vercel workload identity verification is deployed on Render;
-- Atlas Mind implementation builds and is deployed to production;
-- Runtime implementation builds and is deployed live.
-
-### Not yet proven
-
-- a production Atlas Mind model inference successfully invoking the execution tool;
-- Vercel OIDC token accepted on a real Atlas Mind tool call;
-- model-generated multi-step plan reaching JANUS;
-- ProofGrid/THOTH receipts returned into the model context from that model-native call;
-- model revision/synthesis from verified runtime evidence.
-
-## Remaining proof gate
-
-Exactly one external dependency remains for Sprint completion:
-
-1. Enable a usable model processor for the production Atlas Mind deployment. Current fastest path: satisfy Vercel AI Gateway account verification/billing. Canonical no-cloud alternative: restore a reachable EDEN/GA-NIF local model ingress.
-2. Re-run the bounded one-step model-native canary.
-3. Require: model inference → `executeAtlasObjective` → scoped workload identity PASS → live capability selection → JANUS authorization → COMPLETE run → ProofGrid receipt ≥1 → THOTH memory state → model synthesis.
-4. Only then promote this Build Truth to `PROVEN` and close canonical Sprint issue #3.
-
-No fake PASS states are permitted.
+BUILT != TESTED != RUNNING != CONNECTED != EXECUTING != RECEIPTED != VERIFIED != PROVEN != PROMOTED.
