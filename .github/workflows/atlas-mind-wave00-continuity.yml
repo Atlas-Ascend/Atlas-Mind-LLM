@@ -1,0 +1,56 @@
+name: Atlas Mind Wave 00 Continuity
+
+on:
+  push:
+    branches:
+      - convergence/w00-finish-004
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: atlas-mind-wave00-continuity-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  continuity:
+    name: authenticated-restart-recall
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CI: "true"
+      WAVE00_BASE_URL: https://atlasmind.global
+    steps:
+      - name: Checkout exact proof head
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright test runner
+        run: npm install --no-save @playwright/test@1.50.1
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Execute production continuity gate
+        run: >-
+          npx playwright test
+          tests/wave00-continuity.spec.cjs
+          --workers=1
+          --reporter=list
+
+      - name: Upload Wave 00 proof pack
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-mind-wave00-continuity-proof
+          path: |
+            proof/wave00-continuity
+            test-results
+          if-no-files-found: warn
+          retention-days: 30
