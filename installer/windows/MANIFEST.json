@@ -1,0 +1,28 @@
+{
+  "campaign": "ATLAS-MIND-3.0-W00",
+  "product": "Atlas Mind 3.0",
+  "package_version": "3.0.0-wave00-rc1",
+  "mode": "HOSTED_CLIENT",
+  "canonical_repo": "Atlas-Ascend/Atlas-Mind-LLM",
+  "canonical_surface": "https://atlasmind.global/try",
+  "canonical_status": "https://atlasmind.global/api/atlas/v1/status",
+  "model_authority": "GA-NIF",
+  "execution_authority": "JANUS",
+  "installer_sha256": "38f1adfbbd5bbd067ae318f06b539efef479edb41d555e6f288d17657e81e835",
+  "recovered_packaging_lineage": "Atlas Mind V3 0.2.0-IRONCLAD",
+  "salvaged_principles": [
+    "exclusive lock",
+    "staging",
+    "hash receipts",
+    "immutable release",
+    "atomic promotion",
+    "LKG",
+    "rollback",
+    "proof receipt"
+  ],
+  "local_shell": "PRESERVED_HISTORICAL_NOT_PROMOTED_AS_CURRENT_MODEL_CLIENT",
+  "legacy_next_campaign_seed": "NOT_PRESENT_NOT_PROMOTED",
+  "credential_policy": "NO_PROVIDER_OR_OPERATOR_SECRET_EMBEDDED",
+  "status": "CANDIDATE_UNTIL_WINDOWS_CI_PASS",
+  "proof_boundary": "Packaging/installability only. Production model-native execution proof is Atlas-Mind-LLM #5."
+}
