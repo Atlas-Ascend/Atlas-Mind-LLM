@@ -3,6 +3,7 @@ name: Atlas Mind Wave 00 Windows Package
 on:
   push:
     branches:
+      - main
       - convergence/atlas-mind-3.0
     paths:
       - "installer/windows/**"
