@@ -2,7 +2,7 @@
 
 ## Current state
 
-Wave 00 model gates are already proven by Atlas-Mind-LLM #5:
+Wave 00 model gates are proven by Atlas-Mind-LLM #5:
 real Neon inference; model-selected `executeAtlasObjective`; Vercel OIDC; JANUS `fallback=false`; `runtime.sha256`; ProofGrid receipt; THOTH commit; second-pass grounded model synthesis.
 
 Packaging archaeology found:
@@ -12,7 +12,7 @@ Packaging archaeology found:
 
 ## Canonical repair
 
-The current Wave 00 production mode is cloud-hosted. The repaired installer therefore packages the **existing hosted Atlas Mind product**, rather than inventing a second client.
+The current Wave 00 production mode is cloud-hosted. The repaired installer packages the **existing hosted Atlas Mind product**, rather than inventing a second client.
 
 It salvages the IRONCLAD packaging law:
 exclusive lock → staging → deterministic candidate → SHA-256 → live health probe → immutable release → atomic promotion → LKG → rollback → proof receipt.
@@ -27,16 +27,44 @@ No provider/operator secret is embedded.
 
 The historical EDEN/Cali “next campaign” seed is not present or armed.
 
-## Qualification
+## Qualification — PASS
 
-`.github/workflows/atlas-mind-wave00-windows.yml` must pass on `windows-latest` and prove:
-1. fresh install;
-2. persisted receipt + LKG from a separate PowerShell process;
-3. primary shortcut binding to `atlasmind.global/try`;
-4. hosted status reports Atlas + GA-NIF live and processor `BOUND_RESPONSIVE`;
-5. second install creates a rollback/LKG archive;
-6. proof pack uploaded.
+First workflow run `34779299705` failed before any job was allocated. Root cause: the workflow referenced `runner.temp` at job-level `env`, before runner allocation. This was repaired in commit `d180430e2b8c18f24bafc5905e2cdc8abb6647ff` by deriving the temp root inside Windows steps.
+
+Second workflow run `34779389481` completed `success` on Microsoft Windows Server 2025 (`windows-2025-vs2026`). Job `clean-machine` passed every step:
+1. convergence static gate;
+2. fresh install;
+3. persisted receipt + LKG verification from a separate PowerShell process;
+4. repeat install with one rollback archive (`ROLLBACK_ARCHIVES=1`);
+5. independent live Atlas/GA-NIF probe;
+6. proof pack collection/upload.
+
+Final install receipt:
+- package `3.0.0-wave00-rc1`;
+- installer SHA-256 `bc7f82bf2645c567e5078b7d1bbc1d541f18f6c82fa479ae55a826215b8588d1`;
+- hosted probe `PASS`;
+- GA-NIF `LIVE`;
+- processor `BOUND_RESPONSIVE`;
+- configured model `gpt-oss-20b`;
+- observed model count `34`;
+- immutable release `PASS`;
+- atomic promotion `PASS`;
+- rollback ready `PASS`;
+- shortcut install `PASS`;
+- embedded cloud credentials `FALSE`;
+- legacy next-campaign seed `NOT_PRESENT_NOT_PROMOTED`.
+
+Proof artifact:
+- artifact id `10324324453`;
+- name `atlas-mind-wave00-windows-proof`;
+- ZIP SHA-256 `d0db6463143cd7984c2d176388941cae208954594a5027fb885ee968a721c702`;
+- contains final receipt, LKG, two PASS run receipts, and independent live status observation.
 
 ## Boundary
 
-A green Windows package workflow proves current packaging/installability and live hosted-model binding. It does not replace the production model-native proof from #5. Interactive clean-machine browser continuity remains a separate acceptance observation if not exercised by the workflow.
+This proves current Windows packaging/installability, persisted package state across processes, LKG/rollback behavior, launcher binding, and live hosted-model fabric observation.
+
+It does **not** prove the remaining interactive clean-machine lifecycle as one continuous authenticated user lineage:
+install → launch → authenticated inference → THOTH/durable user memory → governed execution → receipt → browser/process restart → authenticated recall/continue.
+
+The public `/try` surface is deliberately bounded and cannot substitute for that private/authenticated continuity gate. No security boundary will be weakened to force closure.
