@@ -82,9 +82,52 @@ Main proof artifact:
 
 Therefore the Windows hosted-client package is now **merged, main-qualified, and canonically documented**. Package promotion does not close the remaining authenticated continuity gate below.
 
+## Public distribution — PASS
+
+The qualified package is now published through the existing Atlas Mind public site rather than a new distribution service.
+
+Website canonical owner:
+`Atlas-Ascend/nextjs-ai-chatbot`.
+
+Release-surface PR #26 merged at:
+`ebd9fc834e50124bca8c8a4335b0a05ccc9377e1`.
+
+Production Vercel deployment:
+`dpl_6r6yv142etcNrzSZUuBkS2ecKPjS` — `READY`, aliased to `atlasmind.global`.
+
+Production build proof:
+- Next.js `16.0.7`;
+- compile PASS;
+- TypeScript PASS;
+- static generation `111/111` PASS;
+- `/releases` emitted as a dedicated static route;
+- deployment completed without alias error.
+
+Live production exercise:
+`https://atlasmind.global/releases` returned HTTP 200 from deployment `dpl_6r6yv142etcNrzSZUuBkS2ecKPjS` and rendered:
+- `Install what has actually been qualified.`;
+- `WINDOWS CI PROVEN`;
+- `3.0.0-WAVE00-RC1`;
+- exact installer SHA-256 `bc7f82bf2645c567e5078b7d1bbc1d541f18f6c82fa479ae55a826215b8588d1`;
+- canonical raw installer download URL from `Atlas-Mind-LLM/main`;
+- qualification receipt checks;
+- explicit remaining authenticated restart/recall boundary.
+
+The canonical raw installer target was independently fetched after publication and still identifies Atlas Mind 3.0, Wave 00 RC1, the hosted Atlas surface and live status endpoint.
+
+Post-cutover runtime probe:
+- Atlas HTTP 200 / `ok=true`;
+- GA-NIF `LIVE`;
+- processor `BOUND_RESPONSIVE`;
+- configured model `gpt-oss-20b`;
+- observed model count `34`;
+- execution authority remains `JANUS -> Workforce -> ProofGrid -> THOTH`.
+
+Publication tracking issue `nextjs-ai-chatbot#24` is closed `completed`.
+
 ## Boundary
 
-This proves current Windows packaging/installability, persisted package state across processes, LKG/rollback behavior, launcher binding, and live hosted-model fabric observation.
+This proves current Windows packaging/installability, persisted package state across processes, LKG/rollback behavior, launcher binding, live hosted-model fabric observation, main promotion, and live public distribution.
 
 It does **not** prove the remaining interactive clean-machine lifecycle as one continuous authenticated user lineage:
 install → launch → authenticated inference → THOTH/durable user memory → governed execution → receipt → browser/process restart → authenticated recall/continue.
