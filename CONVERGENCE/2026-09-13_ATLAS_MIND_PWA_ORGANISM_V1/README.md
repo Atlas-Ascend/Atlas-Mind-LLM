@@ -18,13 +18,14 @@ The existing Atlas Mind identity is exposed through one installable web surface 
 
 Canonical target:
 
-1. repair the incomplete PWA implementation already referenced by `nextjs-ai-chatbot/app/layout.tsx`;
+1. add the missing PWA install contract inside the existing `nextjs-ai-chatbot` owner; current `main` does not contain a complete PWA implementation;
 2. add a consumer-safe `/organism` page inside `atlasmind.global` without exposing private operator authority;
-3. preserve `/atlas` as the governed organism/operator surface;
-4. preserve `runAtlasCloudTurn()` as the single normal-path cognition/action controller;
-5. make mobile/browser installation the MVP embodiment instead of blocking on native Android packaging;
-6. bind Termux later as another client of the same Atlas identity, not a second intelligence;
-7. bind physical EDEN as a governed execution/capability target, not a competing Atlas Mind.
+3. restore `/try` as the new-chat doorway using the existing Chat/API/controller rather than a parallel chatbot;
+4. preserve `/atlas` as the governed organism/operator surface;
+5. preserve `runAtlasCloudTurn()` as the single normal-path cognition/action controller;
+6. make mobile/browser installation the MVP embodiment instead of blocking on native Android packaging;
+7. bind Termux later as another client of the same Atlas identity, not a second intelligence;
+8. bind physical EDEN as a governed execution/capability target, not a competing Atlas Mind.
 
 ## Lane 2 — AtlasMind.Global responsibility closure
 
