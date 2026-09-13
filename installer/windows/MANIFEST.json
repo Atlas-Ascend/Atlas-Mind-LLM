@@ -1,0 +1,39 @@
+{
+  "campaign": "ATLAS-MIND-3.0-W00",
+  "product": "Atlas Mind 3.0",
+  "package_version": "3.0.0-wave00-rc1",
+  "mode": "HOSTED_CLIENT",
+  "canonical_repo": "Atlas-Ascend/Atlas-Mind-LLM",
+  "canonical_surface": "https://atlasmind.global/try",
+  "canonical_status": "https://atlasmind.global/api/atlas/v1/status",
+  "model_authority": "GA-NIF",
+  "execution_authority": "JANUS",
+  "installer_sha256": "bc7f82bf2645c567e5078b7d1bbc1d541f18f6c82fa479ae55a826215b8588d1",
+  "recovered_packaging_lineage": "Atlas Mind V3 0.2.0-IRONCLAD",
+  "salvaged_principles": [
+    "exclusive lock",
+    "staging",
+    "hash receipts",
+    "immutable release",
+    "atomic promotion",
+    "LKG",
+    "rollback",
+    "proof receipt"
+  ],
+  "local_shell": "PRESERVED_HISTORICAL_NOT_PROMOTED_AS_CURRENT_MODEL_CLIENT",
+  "legacy_next_campaign_seed": "NOT_PRESENT_NOT_PROMOTED",
+  "credential_policy": "NO_PROVIDER_OR_OPERATOR_SECRET_EMBEDDED",
+  "status": "WINDOWS_CI_PROVEN",
+  "qualification": {
+    "workflow_run_id": 34779389481,
+    "head_sha": "d180430e2b8c18f24bafc5905e2cdc8abb6647ff",
+    "windows_image": "Microsoft Windows Server 2025 / windows-2025-vs2026",
+    "fresh_install": "PASS",
+    "persistence_fresh_process": "PASS",
+    "repeat_install_lkg": "PASS",
+    "hosted_ga_nif_probe": "PASS",
+    "proof_artifact_id": 10324324453,
+    "proof_artifact_sha256": "d0db6463143cd7984c2d176388941cae208954594a5027fb885ee968a721c702"
+  },
+  "proof_boundary": "This proves Windows packaging, installation, persistence of package receipts, LKG/rollback, launcher binding, and live GA-NIF status. Production model-native governed execution is proven separately by Atlas-Mind-LLM #5. Authenticated browser continuity across restart is not claimed by this manifest."
+}

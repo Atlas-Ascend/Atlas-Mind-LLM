@@ -1,0 +1,126 @@
+name: Atlas Mind Wave 00 Windows Package
+
+on:
+  push:
+    branches:
+      - main
+      - convergence/atlas-mind-3.0
+    paths:
+      - "installer/windows/**"
+      - ".github/workflows/atlas-mind-wave00-windows.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "installer/windows/**"
+      - ".github/workflows/atlas-mind-wave00-windows.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  clean-machine:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    env:
+      INSTALLER: installer\windows\Install-Atlas-Mind-3.0-Wave00.ps1
+      STATUS_ENDPOINT: https://atlasmind.global/api/atlas/v1/status
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Convergence static gate
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $text = Get-Content -LiteralPath $env:INSTALLER -Raw
+          foreach ($required in @(
+            'https://atlasmind.global/try',
+            'https://atlasmind.global/api/atlas/v1/status',
+            "model_authority = 'GA-NIF'",
+            "execution_authority = 'JANUS'",
+            "legacy_next_campaign_seed = 'NOT_PRESENT_NOT_PROMOTED'"
+          )) {
+            if (-not $text.Contains($required)) { throw "Missing required marker: $required" }
+          }
+          foreach ($forbidden in @('VERCEL_TOKEN','NEON_API_KEY','OPENAI_API_KEY','ARCHITECT_KEY')) {
+            if ($text.Contains($forbidden)) { throw "Forbidden credential marker embedded: $forbidden" }
+          }
+
+      - name: Fresh install
+        shell: pwsh
+        run: |
+          $installRoot = Join-Path $env:RUNNER_TEMP 'GhostAtlas\AtlasMind3'
+          & ".\$env:INSTALLER" -InstallRoot $installRoot -NoLaunch
+          if ($LASTEXITCODE -ne 0) { throw "Installer exit=$LASTEXITCODE" }
+
+      - name: Verify persistence from fresh process
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $installRoot = Join-Path $env:RUNNER_TEMP 'GhostAtlas\AtlasMind3'
+          $receiptPath = Join-Path $installRoot 'proof\FINAL-INSTALL-RECEIPT.json'
+          $lkgPath = Join-Path $installRoot 'LKG.json'
+          $shortcutPath = Join-Path $installRoot 'current\Atlas Mind.url'
+          foreach ($p in @($receiptPath,$lkgPath,$shortcutPath)) {
+            if (-not (Test-Path -LiteralPath $p)) { throw "Missing persisted artifact: $p" }
+          }
+          $receipt = Get-Content -LiteralPath $receiptPath -Raw | ConvertFrom-Json
+          if ($receipt.status -ne 'PASS') { throw 'Install receipt did not PASS.' }
+          if ($receipt.hosted_probe -ne 'PASS') { throw "Hosted probe=$($receipt.hosted_probe)" }
+          if ($receipt.gates.atomic_promotion -ne 'PASS') { throw 'Atomic promotion not PASS.' }
+          if ($receipt.gates.rollback_ready -ne 'PASS') { throw 'Rollback readiness not PASS.' }
+          if ($receipt.gates.legacy_next_campaign_seed -ne 'NOT_PRESENT_NOT_PROMOTED') { throw 'Legacy seed promotion detected.' }
+          $shortcut = Get-Content -LiteralPath $shortcutPath -Raw
+          if (-not $shortcut.Contains('URL=https://atlasmind.global/try')) { throw 'Shortcut binding mismatch.' }
+
+      - name: Repeat install to exercise LKG and upgrade path
+        shell: pwsh
+        run: |
+          $installRoot = Join-Path $env:RUNNER_TEMP 'GhostAtlas\AtlasMind3'
+          & ".\$env:INSTALLER" -InstallRoot $installRoot -NoLaunch
+          if ($LASTEXITCODE -ne 0) { throw "Second installer exit=$LASTEXITCODE" }
+          $rollback = Join-Path $installRoot 'rollback'
+          $count = @(Get-ChildItem -LiteralPath $rollback -Directory -ErrorAction SilentlyContinue).Count
+          if ($count -lt 1) { throw 'No prior LKG archive created on second install.' }
+          Write-Host "ROLLBACK_ARCHIVES=$count"
+
+      - name: Independent live Atlas GA-NIF probe
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $status = Invoke-RestMethod -Uri $env:STATUS_ENDPOINT -TimeoutSec 30
+          if ($status.ok -ne $true) { throw 'Atlas public status not ok.' }
+          if ($status.gaNif.ok -ne $true) { throw 'GA-NIF not live.' }
+          if ($status.gaNif.status.processor_bound -ne $true) { throw 'Processor not bound.' }
+          if ([string]$status.gaNif.status.processor_state -ne 'BOUND_RESPONSIVE') {
+            throw "processor_state=$($status.gaNif.status.processor_state)"
+          }
+          [ordered]@{
+            observed_at_utc=[DateTime]::UtcNow
+            atlas_ok=$status.ok
+            ga_nif_ok=$status.gaNif.ok
+            fabric_state=$status.gaNif.fabricState
+            processor_state=$status.gaNif.status.processor_state
+            configured_model=$status.gaNif.status.configured_model
+            observed_model_count=$status.gaNif.status.observed_model_count
+          } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'atlas-live-status.json') -Encoding UTF8
+
+      - name: Collect proof pack
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $installRoot = Join-Path $env:RUNNER_TEMP 'GhostAtlas\AtlasMind3'
+          $proofOut = Join-Path $env:GITHUB_WORKSPACE 'wave00-proof'
+          New-Item -ItemType Directory -Path $proofOut -Force | Out-Null
+          Copy-Item -LiteralPath (Join-Path $installRoot 'proof\FINAL-INSTALL-RECEIPT.json') -Destination $proofOut -Force
+          Copy-Item -LiteralPath (Join-Path $installRoot 'LKG.json') -Destination $proofOut -Force
+          Copy-Item -Path (Join-Path $installRoot 'proof\install-runs\PASS-*.json') -Destination $proofOut -Force
+          Copy-Item -LiteralPath (Join-Path $env:RUNNER_TEMP 'atlas-live-status.json') -Destination $proofOut -Force
+
+      - name: Proof artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-mind-wave00-windows-proof
+          if-no-files-found: error
+          path: wave00-proof/**
