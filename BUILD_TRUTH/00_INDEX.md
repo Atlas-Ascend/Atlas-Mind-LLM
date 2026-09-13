@@ -22,4 +22,5 @@ Canonical Build Truth for Atlas Mind.
 
 ## Current production execution canon
 - ATLAS_MIND_TOOL_AWARE_001.md
-- ATLAS_MIND_AGENTIC_EXECUTION_002.md — includes the 2026-09-12 cloud-provider responsibility split for Base44, Neon, GitHub, Vercel, Render, and monday.com.
+- ATLAS_MIND_AGENTIC_EXECUTION_002.md — cloud-provider responsibility split for Base44, Neon, GitHub, Vercel, Render, and monday.com.
+- GA_ATLAS_MIND_CLOUD_V1_FINISH_001.md — frozen ATLAS-CONTINUOUS definition of finished, F01–F17 acceptance gates, Command-to-Prove standard, and one-session Sprint 00–09 campaign. This file fixes the finish line for the current cloud V1.
