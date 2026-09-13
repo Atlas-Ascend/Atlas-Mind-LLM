@@ -60,6 +60,28 @@ Proof artifact:
 - ZIP SHA-256 `d0db6463143cd7984c2d176388941cae208954594a5027fb885ee968a721c702`;
 - contains final receipt, LKG, two PASS run receipts, and independent live status observation.
 
+## Main promotion — PASS
+
+PR #8 was merged without squashing the qualified lineage. Canonical merge commit:
+`e05814fef89f50ccccac3fb203d7f41ac5b48e93`.
+
+The merge triggered the same Windows package workflow on `main` because the release gate now protects both the convergence branch and canonical main.
+
+Main workflow run `34779745571` completed successfully. Its `clean-machine` job passed:
+- convergence static gate;
+- fresh install;
+- persisted receipt/LKG verification;
+- repeat-install LKG/upgrade path;
+- independent live Atlas GA-NIF probe;
+- proof pack collection/upload.
+
+Main proof artifact:
+- artifact id `10324407898`;
+- name `atlas-mind-wave00-windows-proof`;
+- ZIP SHA-256 `b513ea5caba9b8128d59f1954254c2a36bf5be40c9104374199f996818fa3280`.
+
+Therefore the Windows hosted-client package is now **merged, main-qualified, and canonically documented**. Package promotion does not close the remaining authenticated continuity gate below.
+
 ## Boundary
 
 This proves current Windows packaging/installability, persisted package state across processes, LKG/rollback behavior, launcher binding, and live hosted-model fabric observation.
@@ -67,4 +89,4 @@ This proves current Windows packaging/installability, persisted package state ac
 It does **not** prove the remaining interactive clean-machine lifecycle as one continuous authenticated user lineage:
 install → launch → authenticated inference → THOTH/durable user memory → governed execution → receipt → browser/process restart → authenticated recall/continue.
 
-The public `/try` surface is deliberately bounded and cannot substitute for that private/authenticated continuity gate. No security boundary will be weakened to force closure.
+The public `/try` surface is deliberately bounded and cannot substitute for that private/authenticated continuity gate. Source inspection of the current Auth.js owner also shows that guest identities may be local/ephemeral depending on `ATLAS_PERSISTENCE_MODE`; an ephemeral guest cannot be promoted as proof of durable user continuity. No security boundary will be weakened to force closure.
