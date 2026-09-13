@@ -22,7 +22,6 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 15
     env:
-      INSTALL_ROOT: ${{ runner.temp }}\GhostAtlas\AtlasMind3
       INSTALLER: installer\windows\Install-Atlas-Mind-3.0-Wave00.ps1
       STATUS_ENDPOINT: https://atlasmind.global/api/atlas/v1/status
 
@@ -48,18 +47,20 @@ jobs:
           }
 
       - name: Fresh install
-        shell: powershell
+        shell: pwsh
         run: |
-          & ".\$env:INSTALLER" -InstallRoot $env:INSTALL_ROOT -NoLaunch
+          $installRoot = Join-Path $env:RUNNER_TEMP 'GhostAtlas\AtlasMind3'
+          & ".\$env:INSTALLER" -InstallRoot $installRoot -NoLaunch
           if ($LASTEXITCODE -ne 0) { throw "Installer exit=$LASTEXITCODE" }
 
       - name: Verify persistence from fresh process
-        shell: powershell
+        shell: pwsh
         run: |
           $ErrorActionPreference='Stop'
-          $receiptPath = Join-Path $env:INSTALL_ROOT 'proof\FINAL-INSTALL-RECEIPT.json'
-          $lkgPath = Join-Path $env:INSTALL_ROOT 'LKG.json'
-          $shortcutPath = Join-Path $env:INSTALL_ROOT 'current\Atlas Mind.url'
+          $installRoot = Join-Path $env:RUNNER_TEMP 'GhostAtlas\AtlasMind3'
+          $receiptPath = Join-Path $installRoot 'proof\FINAL-INSTALL-RECEIPT.json'
+          $lkgPath = Join-Path $installRoot 'LKG.json'
+          $shortcutPath = Join-Path $installRoot 'current\Atlas Mind.url'
           foreach ($p in @($receiptPath,$lkgPath,$shortcutPath)) {
             if (-not (Test-Path -LiteralPath $p)) { throw "Missing persisted artifact: $p" }
           }
@@ -72,12 +73,13 @@ jobs:
           $shortcut = Get-Content -LiteralPath $shortcutPath -Raw
           if (-not $shortcut.Contains('URL=https://atlasmind.global/try')) { throw 'Shortcut binding mismatch.' }
 
-      - name: Repeat install to exercise LKG/upgrade path
-        shell: powershell
+      - name: Repeat install to exercise LKG and upgrade path
+        shell: pwsh
         run: |
-          & ".\$env:INSTALLER" -InstallRoot $env:INSTALL_ROOT -NoLaunch
+          $installRoot = Join-Path $env:RUNNER_TEMP 'GhostAtlas\AtlasMind3'
+          & ".\$env:INSTALLER" -InstallRoot $installRoot -NoLaunch
           if ($LASTEXITCODE -ne 0) { throw "Second installer exit=$LASTEXITCODE" }
-          $rollback = Join-Path $env:INSTALL_ROOT 'rollback'
+          $rollback = Join-Path $installRoot 'rollback'
           $count = @(Get-ChildItem -LiteralPath $rollback -Directory -ErrorAction SilentlyContinue).Count
           if ($count -lt 1) { throw 'No prior LKG archive created on second install.' }
           Write-Host "ROLLBACK_ARCHIVES=$count"
@@ -101,15 +103,23 @@ jobs:
             processor_state=$status.gaNif.status.processor_state
             configured_model=$status.gaNif.status.configured_model
             observed_model_count=$status.gaNif.status.observed_model_count
-          } | ConvertTo-Json | Set-Content -LiteralPath "$env:RUNNER_TEMP\atlas-live-status.json" -Encoding UTF8
+          } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'atlas-live-status.json') -Encoding UTF8
+
+      - name: Collect proof pack
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $installRoot = Join-Path $env:RUNNER_TEMP 'GhostAtlas\AtlasMind3'
+          $proofOut = Join-Path $env:GITHUB_WORKSPACE 'wave00-proof'
+          New-Item -ItemType Directory -Path $proofOut -Force | Out-Null
+          Copy-Item -LiteralPath (Join-Path $installRoot 'proof\FINAL-INSTALL-RECEIPT.json') -Destination $proofOut -Force
+          Copy-Item -LiteralPath (Join-Path $installRoot 'LKG.json') -Destination $proofOut -Force
+          Copy-Item -Path (Join-Path $installRoot 'proof\install-runs\PASS-*.json') -Destination $proofOut -Force
+          Copy-Item -LiteralPath (Join-Path $env:RUNNER_TEMP 'atlas-live-status.json') -Destination $proofOut -Force
 
       - name: Proof artifact
         uses: actions/upload-artifact@v4
         with:
           name: atlas-mind-wave00-windows-proof
           if-no-files-found: error
-          path: |
-            ${{ runner.temp }}\GhostAtlas\AtlasMind3\proof\FINAL-INSTALL-RECEIPT.json
-            ${{ runner.temp }}\GhostAtlas\AtlasMind3\LKG.json
-            ${{ runner.temp }}\GhostAtlas\AtlasMind3\proof\install-runs\PASS-*.json
-            ${{ runner.temp }}\atlas-live-status.json
+          path: wave00-proof/**
