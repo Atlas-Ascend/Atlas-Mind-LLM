@@ -5,7 +5,7 @@ Canonical owner: `Atlas-Ascend/Atlas-Mind-LLM`
 Web source: `Atlas-Ascend/nextjs-ai-chatbot`
 Merged PR: `#31`
 Source candidate SHA: `a93bb702d32da7c8da4e58614ad7ab095d9febae`
-Production merge SHA: `a1a1300667fd4a2ed76ec51fbd166529bde9ec8f`
+Production merge SHA: `a1a1300f3b85ab75fc249f42dd49f2a0b9ab7f04`
 Production Vercel deployment: `dpl_5ttuzP3aAeKj4KErWA6o6mDbgb3g`
 Production state: `READY`
 Primary domain: `https://atlasmind.global`
