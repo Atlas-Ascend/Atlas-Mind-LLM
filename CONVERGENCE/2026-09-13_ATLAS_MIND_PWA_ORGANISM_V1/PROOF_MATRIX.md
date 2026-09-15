@@ -29,7 +29,7 @@ No row may be promoted from `OPEN` to `PROVEN` without direct runtime or source 
 
 Canonical receipt: `PWA_PRODUCTION_PROMOTION_002.md`
 
-- production merge SHA: `a1a1300667fd4a2ed76ec51fbd166529bde9ec8f`;
+- production merge SHA: `a1a1300f3b85ab75fc249f42dd49f2a0b9ab7f04`;
 - production deployment: `dpl_5ttuzP3aAeKj4KErWA6o6mDbgb3g`;
 - primary domain: `atlasmind.global`;
 - PWA manifest/service worker/home/try/organism production smoke: PASS;
