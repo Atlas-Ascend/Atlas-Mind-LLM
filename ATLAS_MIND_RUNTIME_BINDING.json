@@ -1,7 +1,7 @@
 {
   "schema": "ghost-atlas.atlas-mind.runtime-binding.v1",
   "convergence_id": "ATLAS-MIND-LINEAGE-CONVERGENCE-006",
-  "status": "CONVERGENCE_CANDIDATE",
+  "status": "SOURCE_CONVERGED_PHYSICAL_PENDING",
   "no_replacement": true,
   "canonical_identity": {
     "entity_id": "atlas-mind",
