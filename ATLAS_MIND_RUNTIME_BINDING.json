@@ -1,0 +1,122 @@
+{
+  "schema": "ghost-atlas.atlas-mind.runtime-binding.v1",
+  "convergence_id": "ATLAS-MIND-LINEAGE-CONVERGENCE-006",
+  "status": "CONVERGENCE_CANDIDATE",
+  "no_replacement": true,
+  "canonical_identity": {
+    "entity_id": "atlas-mind",
+    "display_name": "Atlas Mind",
+    "identity_owner": "Atlas-Ascend/Atlas-Mind-LLM",
+    "law": "models_are_processors_identity_is_persistent"
+  },
+  "historical_lineage": {
+    "model-zero": {
+      "canonical_entity_id": "atlas-mind",
+      "lineage": "MODEL_ZERO",
+      "role": "ancestral_model_and_training_provenance",
+      "disposition": "COMPATIBILITY_ALIAS"
+    },
+    "atlas-mind-v2": {
+      "canonical_entity_id": "atlas-mind",
+      "lineage": "ATLAS_MIND_V2",
+      "role": "operational_identity_rag_training_packet_lineage",
+      "disposition": "COMPATIBILITY_ALIAS"
+    },
+    "atlas-mind-v3": {
+      "canonical_entity_id": "atlas-mind",
+      "lineage": "ATLAS_MIND_V3",
+      "role": "desktop_command_surface_and_cognition_lineage",
+      "disposition": "COMPATIBILITY_ALIAS"
+    },
+    "atlas-mind-v4": {
+      "canonical_entity_id": "atlas-mind",
+      "lineage": "ATLAS_MIND_V4",
+      "role": "promoted_capability_profile_compatibility",
+      "disposition": "COMPATIBILITY_ALIAS"
+    },
+    "atlas-mind-3.0": {
+      "canonical_entity_id": "atlas-mind",
+      "lineage": "ATLAS_MIND_3_0",
+      "role": "current_product_contract",
+      "disposition": "COMPATIBILITY_ALIAS"
+    },
+    "omnimind": {
+      "canonical_entity_id": "atlas-mind",
+      "lineage": "OMNIMIND",
+      "role": "cognitive_subsystem_compatibility",
+      "disposition": "SUBORDINATE_COMPATIBILITY_ALIAS"
+    }
+  },
+  "forensic_holds": {
+    "VEVR": {
+      "disposition": "FORENSIC_HOLD",
+      "promotion": "BLOCKED_PENDING_SOURCE_PROVENANCE",
+      "rule": "preserve_do_not_invent_do_not_delete"
+    }
+  },
+  "surfaces_and_context": {
+    "atlas_mind_office": {
+      "role": "source_truth_and_context_surface",
+      "identity": false,
+      "runtime_path": "Atlas-Ascend/Eden-2.0:scripts/atlas_mind_office_fabric_ingress.py"
+    },
+    "atlas_mind_v3_desktop": {
+      "role": "operator_surface",
+      "identity": false
+    },
+    "sami": {
+      "role": "read_only_resident_context_projection",
+      "identity": false
+    },
+    "thoth": {
+      "role": "durable_memory_and_provenance_owner",
+      "identity": false
+    }
+  },
+  "working_model": {
+    "identity_runtime": "Atlas-Ascend/Eden-2.0:atlas-mind-runtime",
+    "canonical_ingress": "Atlas-Ascend/Eden-2.0:scripts/atlas_mind_converged_ingress.py",
+    "inference_fabric": "GA-NIF",
+    "model_policy": "ga-nif.local-observed.v1",
+    "model_binding": "dynamic_processor_selection_not_fixed_identity",
+    "context_owners": [
+      "Atlas Mind Office",
+      "SAMI",
+      "THOTH",
+      "World State"
+    ],
+    "authority_owner": "JANUS/ODIN",
+    "work_owners": [
+      "Packet OS",
+      "Workforce Spine"
+    ],
+    "execution_owner": "EDEN",
+    "proof_owners": [
+      "SECA/DevOS",
+      "ProofGrid"
+    ],
+    "memory_owner": "THOTH",
+    "closed_loop": [
+      "operator_intent",
+      "Atlas Mind",
+      "GA-NIF",
+      "JANUS/ODIN",
+      "Packet OS",
+      "Workforce Spine",
+      "EDEN",
+      "SECA/DevOS",
+      "ProofGrid",
+      "THOTH",
+      "Atlas Mind"
+    ]
+  },
+  "acceptance": {
+    "all_supported_aliases_resolve_to_one_identity": true,
+    "processor_change_must_not_change_identity": true,
+    "office_context_must_not_become_execution_authority": true,
+    "state_change_requires_janus": true,
+    "execution_requires_packet_and_proof": true,
+    "vevr_must_fail_closed_until_provenance_resolved": true,
+    "physical_promotion_requires_eden_receipt": true
+  }
+}
