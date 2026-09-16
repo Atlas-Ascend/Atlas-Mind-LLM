@@ -1,0 +1,28 @@
+name: Atlas Mind Lineage Convergence
+
+on:
+  pull_request:
+    paths:
+      - 'ATLAS_MIND_RUNTIME_BINDING.json'
+      - 'BUILD_TRUTH/ATLAS_MIND_LINEAGE_CONVERGENCE_006.md'
+      - 'BUILD_TRUTH/04_ARCHITECTURE.md'
+      - 'tests/test_atlas_mind_runtime_binding.py'
+      - '.github/workflows/atlas-mind-lineage-convergence.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'ATLAS_MIND_RUNTIME_BINDING.json'
+      - 'BUILD_TRUTH/ATLAS_MIND_LINEAGE_CONVERGENCE_006.md'
+      - 'BUILD_TRUTH/04_ARCHITECTURE.md'
+      - 'tests/test_atlas_mind_runtime_binding.py'
+
+jobs:
+  binding-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate Atlas Mind runtime binding
+        run: python -m unittest tests/test_atlas_mind_runtime_binding.py -v
