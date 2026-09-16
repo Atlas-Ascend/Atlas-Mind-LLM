@@ -1,0 +1,31 @@
+{
+  "schema": "ghost-atlas.atlas-mind.gari-binding.v1",
+  "status": "SOURCE_BOUND_PENDING_RUNTIME_RECEIPT",
+  "no_replacement": true,
+  "canonical_identity": "atlas-mind",
+  "research_owner": "Atlas-Ascend/Ghost-Atlas-Research-Institute",
+  "role": "planning_context_synthesis_for_governed_research",
+  "capability": "research.investigate",
+  "flow": [
+    "operator_intent",
+    "JANUS_ODIN_authorization",
+    "Atlas_Mind_plan_and_context",
+    "GARI_research_mandate",
+    "Packet_OS_Workforce_HYPERNET_execution",
+    "GARI_VERITAS_SECA_DEVOS_MEDUSA_review",
+    "ProofGrid_receipt",
+    "THOTH_memory",
+    "CaseGraph_projection",
+    "Atlas_Mind_synthesis",
+    "operator_return"
+  ],
+  "required_identity_keys": ["research_object_id", "packet_id", "correlation_id", "trace_id", "proof_id", "memory_id"],
+  "truth_boundary": {
+    "atlas_mind_owns_research_truth": false,
+    "atlas_mind_may_promote_scientific_findings": false,
+    "processor_change_changes_atlas_mind_identity": false,
+    "state_change_requires_janus_or_odin": true,
+    "gari_retains_research_validity_authority": true
+  },
+  "reciprocal_contract": "Atlas-Ascend/Ghost-Atlas-Research-Institute:contracts/gari_atlas_mind_ghost_atlas_os_binding_v1.json"
+}
